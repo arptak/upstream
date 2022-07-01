@@ -75,10 +75,10 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
 '''
         sendMarkup(start_string, context.bot, update.message, reply_markup)
     else:
-        sendMarkup(आपको अनुमति नहीं है, कृपया अपने लिए दूसरा बोट बना लें।', context.bot, update.message, reply_markup)
+        sendMarkup('Not Authorized user, deploy your own mirror-leech bot', context.bot, update.message, reply_markup)
 
 def restart(update, context):
-    restart_message = sendMessage("पुनः प्रारंभ किया जा रहा...", context.bot, update.message)
+    restart_message = sendMessage("Restarting...", context.bot, update.message)
     if Interval:
         Interval[0].cancel()
     alive.kill()
@@ -208,15 +208,15 @@ def main():
                 if ospath.isfile(".restartmsg"):
                     with open(".restartmsg") as f:
                         chat_id, msg_id = map(int, f)
-                    msg = 'पुनः प्रारंभ किया गया!'
+                    msg = 'Restarted successfully!'
                 else:
-                    msg = 'पुनः प्रारंभ किया गया!'
+                    msg = 'Bot Restarted!'
                 for tag, links in data.items():
                      msg += f"\n\n{tag}: "
                      for index, link in enumerate(links, start=1):
                          msg += f" <a href='{link}'>{index}</a> |"
                          if len(msg.encode()) > 4000:
-                             if 'पुनः प्रारंभ किया गया!' in msg and cid == chat_id:
+                             if 'Restarted successfully!' in msg and cid == chat_id:
                                  bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTMl', disable_web_page_preview=True)
                                  osremove(".restartmsg")
                              else:
@@ -225,7 +225,7 @@ def main():
                                  except Exception as e:
                                      LOGGER.error(e)
                              msg = ''
-                if 'पुनः प्रारंभ किया गया!' in msg and cid == chat_id:
+                if 'Restarted successfully!' in msg and cid == chat_id:
                      bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTMl', disable_web_page_preview=True)
                      osremove(".restartmsg")
                 else:
@@ -237,7 +237,7 @@ def main():
     if ospath.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
-        bot.edit_message_text("पुनः प्रारंभ किया गया!", chat_id, msg_id)
+        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
         osremove(".restartmsg")
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
