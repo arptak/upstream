@@ -44,22 +44,22 @@ def stats(update, context):
     mem_t = get_readable_file_size(memory.total)
     mem_a = get_readable_file_size(memory.available)
     mem_u = get_readable_file_size(memory.used)
-    stats = f'<b>Commit Date:</b> {last_commit}\n\n'\
-            f'<b>Bot Uptime:</b> {currentTime}\n'\
-            f'<b>OS Uptime:</b> {osUptime}\n\n'\
-            f'<b>Total Disk Space:</b> {total}\n'\
-            f'<b>Used:</b> {used} | <b>Free:</b> {free}\n\n'\
-            f'<b>Upload:</b> {sent}\n'\
-            f'<b>Download:</b> {recv}\n\n'\
-            f'<b>CPU:</b> {cpuUsage}%\n'\
-            f'<b>RAM:</b> {mem_p}%\n'\
-            f'<b>DISK:</b> {disk}%\n\n'\
-            f'<b>Physical Cores:</b> {p_core}\n'\
-            f'<b>Total Cores:</b> {t_core}\n\n'\
-            f'<b>SWAP:</b> {swap_t} | <b>Used:</b> {swap_p}%\n'\
-            f'<b>Memory Total:</b> {mem_t}\n'\
-            f'<b>Memory Free:</b> {mem_a}\n'\
-            f'<b>Memory Used:</b> {mem_u}\n'
+    stats = f'<b>मिलन का समय:</b> {last_commit}\n\n'\
+            f'<b>बॉट आरंभ समय:</b> {currentTime}\n'\
+            f'<b>ओएस आरंभ समय:</b> {osUptime}\n\n'\
+            f'<b>संपूर्ण मस्तिष्क क्षमता:</b> {total}\n'\
+            f'<b>उपयोग हो रहा:</b> {used} | <b>Free:</b> {free}\n\n'\
+            f'<b>अपलोड:</b> {sent}\n'\
+            f'<b>डॉउनलोड:</b> {recv}\n\n'\
+            f'<b>मस्तिष्क:</b> {cpuUsage}%\n'\
+            f'<b>रैम:</b> {mem_p}%\n'\
+            f'<b>डिस्क:</b> {disk}%\n\n'\
+            f'<b>भौतिक कोर:</b> {p_core}\n'\
+            f'<b>संपूर्ण कोर:</b> {t_core}\n\n'\
+            f'<b>फेर बदल:</b> {swap_t} | <b>Used:</b> {swap_p}%\n'\
+            f'<b>संपूर्ण क्षमता:</b> {mem_t}\n'\
+            f'<b>खाली स्मृति:</b> {mem_a}\n'\
+            f'<b>उपयोग हो रही:</b> {mem_u}\n'
     sendMessage(stats, context.bot, update.message)
 
 
@@ -75,10 +75,10 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
 '''
         sendMarkup(start_string, context.bot, update.message, reply_markup)
     else:
-        sendMarkup('Not Authorized user, deploy your own mirror-leech bot', context.bot, update.message, reply_markup)
+        sendMarkup(आपको अनुमति नहीं है, कृपया अपने लिए दूसरा बोट बना लें।', context.bot, update.message, reply_markup)
 
 def restart(update, context):
-    restart_message = sendMessage("Restarting...", context.bot, update.message)
+    restart_message = sendMessage("पुनः प्रारंभ किया जा रहा...", context.bot, update.message)
     if Interval:
         Interval[0].cancel()
     alive.kill()
@@ -208,15 +208,15 @@ def main():
                 if ospath.isfile(".restartmsg"):
                     with open(".restartmsg") as f:
                         chat_id, msg_id = map(int, f)
-                    msg = 'Restarted successfully!'
+                    msg = 'पुनः प्रारंभ किया गया!'
                 else:
-                    msg = 'Bot Restarted!'
+                    msg = 'पुनः प्रारंभ किया गया!'
                 for tag, links in data.items():
                      msg += f"\n\n{tag}: "
                      for index, link in enumerate(links, start=1):
                          msg += f" <a href='{link}'>{index}</a> |"
                          if len(msg.encode()) > 4000:
-                             if 'Restarted successfully!' in msg and cid == chat_id:
+                             if 'पुनः प्रारंभ किया गया!' in msg and cid == chat_id:
                                  bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTMl', disable_web_page_preview=True)
                                  osremove(".restartmsg")
                              else:
@@ -225,7 +225,7 @@ def main():
                                  except Exception as e:
                                      LOGGER.error(e)
                              msg = ''
-                if 'Restarted successfully!' in msg and cid == chat_id:
+                if 'पुनः प्रारंभ किया गया!' in msg and cid == chat_id:
                      bot.editMessageText(msg, chat_id, msg_id, parse_mode='HTMl', disable_web_page_preview=True)
                      osremove(".restartmsg")
                 else:
@@ -237,7 +237,7 @@ def main():
     if ospath.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
-        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        bot.edit_message_text("पुनः प्रारंभ किया गया!", chat_id, msg_id)
         osremove(".restartmsg")
 
     start_handler = CommandHandler(BotCommands.StartCommand, start, run_async=True)
