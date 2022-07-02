@@ -15,7 +15,7 @@ def mirror_status(update, context):
         if len(download_dict) == 0:
             currentTime = get_readable_time(time() - botStartTime)
             free = get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)
-            message = कोई सक्रिय प्रक्रिया नहीं है !\n___________________________'
+            message = 'कोई सक्रिय प्रक्रिया नहीं है !\n___________________________'
             message += f"\n<b>सीपीयू:</b> {cpu_percent()}% | <b>मुक्त:</b> {free}" \
                        f"\n<b>रैम:</b> {virtual_memory().percent}% | <b>प्रारंभ का समय:</b> {currentTime}"
             reply_message = sendMessage(message, context.bot, update.message)
